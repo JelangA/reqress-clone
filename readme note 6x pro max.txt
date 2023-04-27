@@ -5,4 +5,6 @@ sequelize db:migrate
     jika tidak bisa {{ Set-ExecutionPolicy RemoteSigned }}
 sequelize db:seed:all
 
-btw lupa ubah .env.example jadi .env hungkul
+btw poho ubah .env.example jadi .env hungkul
+
+npm run main 
