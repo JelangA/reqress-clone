@@ -1,8 +1,8 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
 
-const User = sequelize.define(
-  "User",
+const resources = sequelize.define(
+  "resources",
   {
     id: {
       allowNull: false,
@@ -10,23 +10,23 @@ const User = sequelize.define(
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    email: {
+    name: {
       type: DataTypes.STRING,
     },
-    first_name: {
+    year: {
+      type: DataTypes.INTEGER,
+    },
+    color: {
       type: DataTypes.STRING,
     },
-    last_name: {
-      type: DataTypes.STRING,
-    },
-    avatar: {
+    pantone_value: {
       type: DataTypes.STRING,
     },
   },
   {
-    tableName: "users",
+    tableName: "resources",
     timestamps: false,
   }
 );
 
-module.exports = User;
+module.exports = resources;

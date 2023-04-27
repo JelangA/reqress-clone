@@ -2,9 +2,8 @@ require("dotenv").config();
 
 const express = require("express");
 const bodyparser = require("body-parser");
-const userRoute = require("./routes/Route");
+const Route = require("./routes/Route");
 
-// const user = require("./models/users");
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -12,7 +11,7 @@ app.use(bodyparser.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Gunakan route users
-app.use(userRoute);
+app.use(Route);
 
 app.listen(port, () => {
     console.log(`server berjalan di http://localhost:${port}`);

@@ -16,6 +16,13 @@ respon.response = (res, code, pages,per_pages,totals,total_pages , data, extra =
     });
 };
 
+respon.resposeOne = (res, code, data, extra = extras) => {
+    return res.status(code).json({
+        data: data,
+        support: extra,
+    });
+};
+
 respon.responseErr = (res, code, message, data) => {
     return res.status(code).json({
         code: code,
@@ -23,5 +30,6 @@ respon.responseErr = (res, code, message, data) => {
         errors: data,
     });
 };
+
 
 module.exports = respon;
