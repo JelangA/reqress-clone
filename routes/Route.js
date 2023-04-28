@@ -1,14 +1,19 @@
 const express = require("express");
 const router = express.Router();
-const UserController = require("../controllers/listuserController");
+const ListUserController = require("../controllers/listuserController");
 const ResourceConteoller = require('../controllers/resourceController');
-
-// User Route
-router.get("/users", UserController.getAll);
-router.get("/users/:id", UserController.getById);
+const UserController = require('../controllers/userController');
+// List User Route
+router.get("/users", ListUserController.getAll);
+router.get("/users/:id", ListUserController.getById);
 
 // Resource Route
 router.get("/unknown", ResourceConteoller.getAll);
 router.get("/unknown/:id", ResourceConteoller.getById);
+
+// User Controller 
+router.post("/users/add", UserController.create);
+router.put("/users/:id", UserController.update);
+router.patch("/users/:id", UserController.patch);
 
 module.exports = router;

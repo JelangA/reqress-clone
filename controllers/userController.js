@@ -3,59 +3,72 @@ const respon = require("../utils/helpers");
 
 controller = {};
 
-controller.getAll = async (req, res) => {
+controller.create = async (req, res) => {
   try {
-    const delay = parseInt(req.query.delay) || 0;
-    await new Promise((resolve) => setTimeout(resolve, delay));
-
-    const users = await User.findAll();
-    const page = parseInt(req.query.page) || 2;
-    const perPage = 6;
-
-    // Hitung total data dan halaman
-    const totalData = users.length;
-    const totalPages = Math.ceil(totalData / perPage);
-
-    // Ambil data untuk halaman yang diminta
-    const startIndex = (page - 1) * perPage;
-    const endIndex = startIndex + perPage;
-    const data = users.slice(startIndex, endIndex);
-
-    // Hasil Response
-    return respon.response(
-      res,
-      200,
-      page,
-      perPage,
-      totalData,
-      totalPages,
-      data
-    );
+    //!req.body.name?.trim() || !req.body.job?.trim()
+    if (req.body.name.trim() === "" || req.body.job.trim() === ""){
+      return respon.responseErr(res, 400, "missing reqprd");
+    }
+    const createUser = await User.create(req.body, {
+      // attributes: { exclude: ["updatedAt"] },
+    });
+    return respon.responseInput(res, 200, createUser);
   } catch (error) {
-    return respon.responseErr(
-      res,
-      500,
-      "get error when all data",
-      error.message
-    );
+    // console.log(error);
+    return respon.responseErr(res, 500, "error input data User", error.message)
+  }
+}
+
+controller.update = async (req, res) => {
+  let message = "Success";
+  try {
+    let updateUser = await User.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (updateUser[0] == 0) {
+      message = "Update User Data Failed";
+      return respon.responseErr(res, 400, message, "");
+    }
+    // if (!updateUser) {
+    //   message = "User Not Found";
+    //   return respon.responseErr(res, 404, message, "")
+    // }
+    const userBaru = await User.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    return respon.responseInput(res, 200, userBaru);
+  } catch (err) {
+    console.log(err);
+    return respon.responseErr(res, 500, "Error", err.message);
   }
 };
 
-controller.getById = async (req, res) => {
-  let id = parseInt(req.params.id);
+
+controller.patch = async (req, res) => {
+  let message = "Success";
   try {
-    const data = await User.findOne({
+    let updateUser = await User.patch(req.body, {
       where: {
-        id: id,
+        id: req.params.id,
       },
     });
-    console.log(data);
-    if (data == null) {
-      return res.status(404).json({});
+    if (updateUser[0] == 0) {
+      message = "Gagal edit data User";
+      return respon.responseErr(res, 400, message, "");
     }
-    return respon.resposeOne(res, 200, data);
-  } catch (error) {
-    return respon.responseErr(res, 500, "get error when get id", error.message);
+    const userBaru = await User.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    return respon.responseInput(res, 200, userBaru);
+  } catch (err) {
+    console.log(err);
+    return respon.responseErr(res, 500, "Error", err.message);
   }
 };
 

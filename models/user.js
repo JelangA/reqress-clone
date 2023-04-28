@@ -23,8 +23,8 @@ const User = sequelize.define(
     },
   },
   {
-    tableName: "user",
+    tableName: "users",
   }
 );
 
-module.exports = ListUser;
+module.exports = User;
