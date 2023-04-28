@@ -5,28 +5,26 @@ const User = sequelize.define(
   "User",
   {
     id: {
+      field: "id",
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    email: {
+    name: {
+      field: "name",
+      allowNull: false,
       type: DataTypes.STRING,
     },
-    first_name: {
-      type: DataTypes.STRING,
-    },
-    last_name: {
-      type: DataTypes.STRING,
-    },
-    avatar: {
+    job: {
+      field: "job",
+      allowNull: false,
       type: DataTypes.STRING,
     },
   },
   {
-    tableName: "users",
-    timestamps: false,
+    tableName: "user",
   }
 );
 
-module.exports = User;
+module.exports = ListUser;

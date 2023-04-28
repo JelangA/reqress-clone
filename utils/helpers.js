@@ -31,5 +31,11 @@ respon.responseErr = (res, code, message, data) => {
     });
 };
 
+respon.responseInput = (res, code, data) => {
+    return res.status(code).json({
+        data
+    });
+};
+
 
 module.exports = respon;
