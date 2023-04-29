@@ -11,9 +11,10 @@ router.get("/users/:id", ListUserController.getById);
 router.get("/unknown", ResourceConteoller.getAll);
 router.get("/unknown/:id", ResourceConteoller.getById);
 
-// User Controller 
+// User Controller
 router.post("/users/add", UserController.create);
 router.put("/users/:id", UserController.update);
 router.patch("/users/:id", UserController.patch);
+router.delete("/users/:id", UserController.delete);
 
 module.exports = router;

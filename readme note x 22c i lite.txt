@@ -33,9 +33,9 @@ run {
 exptra
 cli command add file {
     file model+migration+attributes : 
-        sequelize model:generate --name User --attributes name:string,job:string,id:integer
+        sequelize model:generate --name <User> --attributes name:string,job:string
     file migration : 
-        sequelize migration:create --name=create_users_table
+        sequelize migration:create --name=<create_users_table>
     file seeder : 
         sequelize seed:generate --name <nama-seeder>.js
 }

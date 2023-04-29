@@ -31,11 +31,7 @@ controller.update = async (req, res) => {
       message = "Update User Data Failed";
       return respon.responseErr(res, 400, message, "");
     }
-    // if (!updateUser) {
-    //   message = "User Not Found";
-    //   return respon.responseErr(res, 404, message, "")
-    // }
-    const userBaru = await User.findOne({
+    let userBaru = await User.findOne({
       where: {
         id: req.params.id,
       },
@@ -49,27 +45,50 @@ controller.update = async (req, res) => {
 
 
 controller.patch = async (req, res) => {
-  let message = "Success";
-  try {
-    let updateUser = await User.patch(req.body, {
-      where: {
-        id: req.params.id,
-      },
-    });
-    if (updateUser[0] == 0) {
-      message = "Gagal edit data User";
-      return respon.responseErr(res, 400, message, "");
-    }
-    const userBaru = await User.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-    return respon.responseInput(res, 200, userBaru);
-  } catch (err) {
-    console.log(err);
-    return respon.responseErr(res, 500, "Error", err.message);
-  }
+  // let message = "Success";
+  // try {
+  //   let updateUser = await User.patch(req.body, {
+  //     where: {
+  //       id: req.params.id,
+  //     },
+  //   });
+  //   if (updateUser[0] == 0) {
+  //     message = "Gagal edit data User";
+  //     return respon.responseErr(res, 400, message, "");
+  //   }
+  //   const userBaru = await User.findOne({
+  //     where: {
+  //       id: req.params.id,
+  //     },
+  //   });
+  //   return respon.responseInput(res, 200, userBaru);
+  // } catch (err) {
+  //   console.log(err);
+  //   return respon.responseErr(res, 500, "Error", err.message);
+  // }
 };
 
+controller.delete = async (req, res) => {
+  let message = "Succes";
+  try {
+    let getOne = await User.findOne({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (getOne == null) {
+      message = "User Id Not Found";
+      return respon.responseErr(res, 400, message, "")
+    }
+    await User.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    return respon.responseInput(res, 200, message)
+    
+  } catch (error) {
+    return respon.responseErr(res, 500, "error when dleted data",error.message);
+  }
+}
 module.exports = controller;

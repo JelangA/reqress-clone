@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const bodyparser = require("body-parser");
 const Route = require("./routes/Route");
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -10,7 +11,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyparser.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Gunakan route users
+// Gunakan route
 app.use(Route);
 
 app.listen(port, () => {
