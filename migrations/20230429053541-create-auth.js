@@ -9,7 +9,15 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      email: {
+      nama_lengkap: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      username: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      alamat: {
         allowNull: false,
         type: Sequelize.STRING,
       },
