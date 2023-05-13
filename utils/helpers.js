@@ -27,15 +27,15 @@ respon.responseErr = (res, code, message, data) => {
     return res.status(code).json({
         code: code,
         message: message || "error",
-        errors: data,
+        errors: data || "",
     });
 };
 
 respon.responseInput = (res, code, data) => {
     return res.status(code).json({
-        Message : "succes",
         data
     });
 };
+
 
 module.exports = respon;

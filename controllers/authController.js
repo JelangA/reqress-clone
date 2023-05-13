@@ -1,35 +1,27 @@
-const AuthModel = require('../models/auth');
+const jwt = require("jsonwebtoken");
+const respon = require("../utils/helpers");
 
 controller = {};
-controller.create = async (req, res) => {
-    try {
-      //!req.body.name?.trim() || !req.body.job?.trim()
-      if (req.body.email.trim() === "" || req.body.password.trim() === ""){
-        return respon.responseErr(res, 400, "missing reqprd");
-      }
-      const Input = await AuthModel.create(req.body);
-      return respon.responseInput(res, 200, Input);
-    } catch (error) {
-      // console.log(error);
-      return respon.responseErr(res, 500, "error input data User", error.message)
-    }
-  }
 
-controller.login = async (req, res) => {
-    try {
-        if (req.body.email.trim() === "" || req.body.password.trim() === ""){
-          return respon.responseErr(res, 400, "missing reqprd");
-        }
-        const Input = await AuthModel.find({
-            where: {
-                Username: req.body.username,
-                Password: req.body.password
-            }
-        });
-        return respon.responseInput(res, 200, Input);
-      } catch (error) {
-        return respon.responseErr(res, 500, "error input data User", error.message)
-      }
-}
+controller.login = (req, res) => {
+  // Contoh username dan password sementara
+  const username = "user";
+  const password = "password";
+
+  // Periksa apakah username dan password yang diberikan sesuai
+  if (req.body.username === username && req.body.password === password) {
+    // Jika sesuai, buat token JWT dan kirim ke client
+    const token = jwt.sign({ username }, "secret-key");
+    res.json({ token });
+  } else {
+    // Jika tidak sesuai, kirim respons error
+    respon.responseErr(res, 401, "Invalid username or password", "");
+  }
+};
+
+controller.protected = (req, res) => {
+  // Jika token valid, kirim respons berhasil
+  res.json({ message: "Protected endpoint accessed" });
+};
 
 module.exports = controller;

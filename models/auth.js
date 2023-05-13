@@ -11,18 +11,8 @@ const Auth = sequelize.define(
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    nama_lengkap: {
-      field: "nama_lengkap",
-      allowNull: false,
-      type: DataTypes.STRING,
-    },
-    username: {
-      field: "username",
-      allowNull: false,
-      type: DataTypes.STRING,
-    },
-    alamat: {
-      field: "alamat",
+    email: {
+      field: "email",
       allowNull: false,
       type: DataTypes.STRING,
     },

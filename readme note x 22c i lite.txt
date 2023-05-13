@@ -2,17 +2,21 @@ command command nodejs
 
 setup {
     npm init
+    npm install express
 }
 
-instalasi {
-    npm install express
+dep {
     npm install body-parser
     npm install cli
     npm install dotenv
     npm install mysql2
     npm install nodemon
     npm install sequelize
-    shortcut = {{ npm i express, body-parser, cli, dotenv, mysql2, nodemon, sequelize }}
+    shortcut = {{ npm i body-parser, cli, dotenv, mysql2, nodemon, sequelize, jsonwebtoken, bcrypt }}
+}
+
+Skeleton {
+    sequelize init
 }
 
 database migrations{
